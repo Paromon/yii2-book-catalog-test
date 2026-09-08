@@ -20,6 +20,25 @@ $this->params['breadcrumbs'][] = $this->title;
     'dataProvider' => $provider,
     'columns' => [
         [
+            'attribute' => 'cover',
+            'format' => 'raw',
+            'enableSorting' => false,
+            'headerOptions' => ['style' => 'width:60px'],
+            'contentOptions' => ['style' => 'width:60px'],
+            'value' => static function ($model) {
+                if (!$model->cover) {
+                    return '';
+                }
+
+                return Html::img($model->cover, [
+                    'alt' => $model->title,
+                    'width' => 50,
+                    'height' => 50,
+                    'class' => 'book-cover-thumb',
+                ]);
+            },
+        ],
+        [
             'attribute' => 'title',
         ],
         [

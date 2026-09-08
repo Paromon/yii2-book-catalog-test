@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <p>Текущая обложка:</p>
         <p><?= Html::img($book->cover, ['class' => 'book-cover', 'alt' => $book->title]) ?></p>
     <?php endif; ?>
-    <?= $form->field($formModel, 'cover')->fileInput() ?>
+    <?= $form->field($formModel, 'cover')->fileInput()->hint('PNG, JPG или WebP, до 5 МБ.') ?>
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         <?= Html::a('Отмена', $book ? ['view', 'id' => $book->id] : ['index'], ['class' => 'btn btn-outline-secondary']) ?>

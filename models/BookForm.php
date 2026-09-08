@@ -22,6 +22,7 @@ final class BookForm extends Model
     {
         return [
             [['title', 'year', 'isbn', 'authorIds'], 'required'],
+            [['cover'], 'required', 'when' => static fn (self $model) => $model->id === null, 'message' => 'Загрузите фото главной страницы.'],
             [['title', 'isbn'], 'trim'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string'],

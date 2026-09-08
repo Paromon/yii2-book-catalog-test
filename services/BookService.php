@@ -11,6 +11,7 @@ use RuntimeException;
 use Throwable;
 use Yii;
 use yii\db\IntegrityException;
+use yii\web\UploadedFile;
 
 final class BookService
 {
@@ -60,7 +61,7 @@ final class BookService
 
         $oldCover = $book->cover;
         $newCover = null;
-        if ($form->cover !== null) {
+        if ($form->cover instanceof UploadedFile) {
             $newCover = $this->storeCover($form);
             $book->cover = $newCover;
         }
@@ -115,7 +116,7 @@ final class BookService
 
     private function storeCover(BookForm $form): string
     {
-        if ($form->cover === null) {
+        if (!$form->cover instanceof UploadedFile) {
             throw new RuntimeException('Cover file is missing.');
         }
 

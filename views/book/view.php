@@ -23,6 +23,12 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 <?php endif; ?>
 
+<?php if ($book->cover): ?>
+    <p>
+        <strong>Обложка</strong><br>
+        <?= Html::img($book->cover, ['class' => 'book-cover', 'alt' => $book->title]) ?>
+    </p>
+<?php endif; ?>
 <p><strong>Год:</strong> <?= Html::encode((string) $book->year) ?></p>
 <p><strong>ISBN:</strong> <?= Html::encode($book->isbn) ?></p>
 <p>
@@ -32,7 +38,4 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a(Html::encode($author->full_name), ['/author/view', 'id' => $author->id]) ?>
     <?php endforeach; ?>
 </p>
-<?php if ($book->cover): ?>
-    <p><?= Html::img($book->cover, ['class' => 'book-cover', 'alt' => $book->title]) ?></p>
-<?php endif; ?>
 <p><?= nl2br(Html::encode((string) $book->description)) ?></p>
