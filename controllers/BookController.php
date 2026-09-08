@@ -16,7 +16,6 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
-use yii\web\UploadedFile;
 
 final class BookController extends Controller
 {
@@ -74,8 +73,7 @@ final class BookController extends Controller
     public function actionCreate(): string|Response
     {
         $form = new BookForm();
-        if ($form->load(Yii::$app->request->post())) {
-            $form->cover = UploadedFile::getInstance($form, 'cover');
+        if ($form->loadPosted(Yii::$app->request->post())) {
             if ($form->validate()) {
                 try {
                     $book = $this->bookService->create($form);
@@ -101,8 +99,7 @@ final class BookController extends Controller
     {
         $book = $this->findBook($id);
         $form = BookForm::fromBook($book);
-        if ($form->load(Yii::$app->request->post())) {
-            $form->cover = UploadedFile::getInstance($form, 'cover');
+        if ($form->loadPosted(Yii::$app->request->post())) {
             if ($form->validate()) {
                 try {
                     $this->bookService->update($book, $form);

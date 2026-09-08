@@ -69,6 +69,25 @@ final class BookForm extends Model
         ];
     }
 
+    /**
+     * Yii кладёт в file-поле пустую строку из POST, её нельзя писать в ?UploadedFile.
+     */
+    public function loadPosted(array $post): bool
+    {
+        $formName = $this->formName();
+        if (isset($post[$formName]) && is_array($post[$formName])) {
+            unset($post[$formName]['cover']);
+        }
+
+        if (!$this->load($post)) {
+            return false;
+        }
+
+        $this->cover = UploadedFile::getInstance($this, 'cover');
+
+        return true;
+    }
+
     public static function fromBook(Book $book): self
     {
         $form = new self();
